@@ -10,6 +10,7 @@ class Person(db.Model):
     phone = db.Column(db.String(20), unique=True, nullable=True)
     email = db.Column(db.String(120), unique=True, nullable=True)
     gender = db.Column(db.String(10))
+    national_id = db.Column(db.String(30), unique=True)
 
     type = db.Column(db.String(50))  # Discriminator for joined-table inheritance
     __mapper_args__ = {'polymorphic_identity': 'person', 'polymorphic_on': type}

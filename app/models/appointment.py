@@ -14,7 +14,8 @@ class Appointment(db.Model):
     patient_id = db.Column(db.Integer, db.ForeignKey('patients.id'), nullable=False)
     provider_id = db.Column(db.Integer, db.ForeignKey('providers.id'), nullable=False)
 
-    scheduled_time = db.Column(db.DateTime, nullable=False)
+    start_time = db.Column(db.DateTime, nullable=False)
+    end_time = db.Column(db.DateTime, nullable=False)
     status = db.Column(db.String(30), default='scheduled')  # scheduled, completed, cancelled
 
     appointment_type = db.relationship('AppointmentType')
