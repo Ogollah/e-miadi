@@ -11,6 +11,7 @@ def create_app():
     migrate.init_app(app, db)
     jwt.init_app(app)
 
+    from .models import appointment, user, patient, provider, insurance, record, person
     register_blueprints(app)
 
     return app
