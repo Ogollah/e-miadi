@@ -27,7 +27,42 @@ swagger_template = {
             "rescheduled_start_time": {"type": "string", "format": "date-time"},
             "rescheduled_end_time": {"type": "string", "format": "date-time"}
         }
-    }
+    },
+    "User": {
+        "type": "object",
+        "properties": {
+            "id": {"type": "integer"},
+            "username": {"type": "string"},
+            "role": {"type": "string"},
+            "person_id": {"type": "integer"}
+        }
+    },
+    "Patient": {
+        "type": "object",
+        "properties": {
+            "id": {"type": "integer"},
+            "first_name": {"type": "string"},
+            "last_name": {"type": "string"},
+            "email": {"type": "string"},
+            "phone_number": {"type": "string"},
+            "date_of_birth": {"type": "string", "format": "date"},
+            "national_id": {"type": "string"},
+        }
+    },
+          
+    "Provider": {
+        "type": "object",
+        "properties": {
+            "id": {"type": "integer"},
+            "first_name": {"type": "string"},
+            "last_name": {"type": "string"},
+            "email": {"type": "string"},
+            "phone_number": {"type": "string"},
+            "specialization": {"type": "string"},
+            "national_id": {"type": "string"},
+        }
+    },
+    
 },
     "security": [
         {
