@@ -12,5 +12,5 @@ class Person(db.Model):
     gender = db.Column(db.String(10))
     national_id = db.Column(db.String(30), unique=True)
 
-    type = db.Column(db.String(50))  # Discriminator for joined-table inheritance
+    type = db.Column(db.String(50)) 
     __mapper_args__ = {'polymorphic_identity': 'person', 'polymorphic_on': type}

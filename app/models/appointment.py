@@ -19,4 +19,4 @@ class Appointment(db.Model):
     status = db.Column(db.String(30), default='scheduled')  # scheduled, completed, cancelled
 
     appointment_type = db.relationship('AppointmentType')
-    medical_record = db.relationship('MedicalRecord', backref='appointment', uselist=False)
+    medical_record = db.relationship('MedicalRecord', back_populates='appointment', uselist=False)

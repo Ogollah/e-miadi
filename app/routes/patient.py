@@ -1,6 +1,8 @@
+from operator import or_
 from flask import Blueprint, jsonify, request
 from sqlalchemy.exc import IntegrityError
 from app.models.patient import Patient
+from app.models.person import Person
 from app.schemas.patient import PatientSchema
 from app.extensions import db
 
@@ -29,3 +31,27 @@ def register_patient():
     except IntegrityError:
         db.session.rollback()
         return jsonify({"message": "Duplicate entry"}), 409
+    
+@patient_bp.route("", methods=["GET"])
+def list_patients():
+    search = request.args.get("search")
+    query = Patient.query
+
+    if search:
+        search = f"%{search}%"
+        query = query.filter(or_(
+            Person.first_name.ilike(search),
+            Person.last_name.ilike(search),
+            Person.national_id.ilike(search),
+            Patient.patient_number.ilike(search)
+        ))
+
+    patients = query.all()
+    schema = PatientSchema(many=True)
+    return jsonify(schema.dump(patients)), 200
+
+@patient_bp.route("/<int:patient_id>", methods=["GET"])
+def get_patient(patient_id):
+    patient = Patient.query.get_or_404(patient_id)
+    schema = PatientSchema()
+    return jsonify(schema.dump(patient)), 200

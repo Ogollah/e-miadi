@@ -32,6 +32,9 @@ def register_user():
 
     return jsonify({"message": "User created successfully."}), 201
 
+from flask_jwt_extended import create_access_token
+from datetime import timedelta
+
 @auth_bp.route('/login', methods=['POST'])
 def login():
     data = request.get_json()
@@ -41,7 +44,9 @@ def login():
         return jsonify({"message": "Invalid credentials"}), 401
 
     access_token = create_access_token(
-        identity={'id': user.id, 'role': user.role},
+        identity=str(user.id), 
+        additional_claims={"role": user.role},
         expires_delta=timedelta(hours=1)
     )
+
     return jsonify(access_token=access_token), 200
