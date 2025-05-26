@@ -2,6 +2,8 @@ from flask import Flask
 from .config import Config
 from .extensions import db, migrate, jwt
 from .routes import register_blueprints
+from flasgger import Swagger
+from .schemas.swagger_definitions import swagger_template
 
 def create_app():
     app = Flask(__name__)
@@ -10,7 +12,7 @@ def create_app():
     db.init_app(app)
     migrate.init_app(app, db)
     jwt.init_app(app)
-
+    Swagger(app, template=swagger_template)
     from .models import appointment, user, patient, provider, insurance, record, person
     register_blueprints(app)
 

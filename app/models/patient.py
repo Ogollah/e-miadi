@@ -12,5 +12,6 @@ class Patient(Person):
 
     __mapper_args__ = {'polymorphic_identity': 'patient'}
 
-    insurance = db.relationship('Insurance', backref='patient')
+    insurances = db.relationship("Insurance", back_populates="patient", cascade="all, delete-orphan")
+
     appointments = db.relationship('Appointment', backref='patient')

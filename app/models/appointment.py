@@ -16,7 +16,9 @@ class Appointment(db.Model):
 
     start_time = db.Column(db.DateTime, nullable=False)
     end_time = db.Column(db.DateTime, nullable=False)
-    status = db.Column(db.String(30), default='scheduled')  # scheduled, completed, cancelled
+    status = db.Column(db.String(30), default='scheduled')  # scheduled, completed, cancelled, rescheduled
+    rescheduled_start_time = db.Column(db.DateTime, nullable=True)
+    rescheduled_end_time = db.Column(db.DateTime, nullable=True)
 
     appointment_type = db.relationship('AppointmentType')
     medical_record = db.relationship('MedicalRecord', back_populates='appointment', uselist=False)

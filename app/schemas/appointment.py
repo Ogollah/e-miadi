@@ -9,7 +9,9 @@ class AppointmentSchema(Schema):
     start_time = fields.DateTime(required=True)
     end_time = fields.DateTime(required=True)
     status = fields.Str(
-        validate=validate.OneOf(["scheduled", "completed", "cancelled"]),
+        validate=validate.OneOf(["scheduled", "completed", "cancelled", "rescheduled"]),
         load_default="scheduled"
     )
+    rescheduled_start_time = fields.DateTime(dump_only=True)
+    rescheduled_end_time = fields.DateTime(dump_only=True)
 
