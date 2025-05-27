@@ -90,9 +90,9 @@ $ pip install -r requirements.txt
 $ python3 run.py
 ```
 
-6. Navigate to [http://localhost:5000](http://localhost:5000)
+6. Navigate to [http://localhost:5000](http://localhost:5000) OR [http://localhost:5000/apidocs](http://localhost:5000/apidocs)
 
-## 🗄️ DB SchemaDB Schema
+## 🗄️ DB Schema
 
 ```
 -- Base persons table (inheritance pattern)
