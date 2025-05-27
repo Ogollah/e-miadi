@@ -1,3 +1,4 @@
+from flask_jwt_extended import jwt_required
 from sqlalchemy import or_
 from flask import Blueprint, request, jsonify
 from app.extensions import db
@@ -8,6 +9,7 @@ from app.schemas.provider import ProviderSchema
 provider_bp = Blueprint('provider', __name__, url_prefix='/providers')
 
 @provider_bp.route('', methods=['POST'])
+@jwt_required()
 def create_provider():
     data = request.get_json()
     schema = ProviderSchema()
@@ -23,6 +25,7 @@ def create_provider():
     }), 201
 
 @provider_bp.route("", methods=["GET"])
+@jwt_required()
 def list_providers():
     search = request.args.get("search")
     query = Provider.query

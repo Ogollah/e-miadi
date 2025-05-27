@@ -6,10 +6,11 @@ from .extensions import db, migrate, jwt
 from .routes import register_blueprints
 from flasgger import Swagger
 from .schemas.swagger_definitions import swagger_template
+from .config import app_config
 
-def create_app():
+def create_app(config_name):
     app = Flask(__name__)
-    app.config.from_object(Config)
+    app.config.from_object(app_config[config_name])
 
     db.init_app(app)
     migrate.init_app(app, db)

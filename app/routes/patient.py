@@ -1,5 +1,6 @@
 from operator import or_
 from flask import Blueprint, jsonify, request
+from flask_jwt_extended import jwt_required
 from sqlalchemy.exc import IntegrityError
 from app.models.patient import Patient
 from app.models.person import Person
@@ -8,6 +9,7 @@ from app.extensions import db
 
 patient_bp = Blueprint('patients', __name__, url_prefix='/patients')
 @patient_bp.route('', methods=['POST'])
+@jwt_required()
 def register_patient():
     data = request.get_json()
     schema = PatientSchema()
@@ -33,6 +35,7 @@ def register_patient():
         return jsonify({"message": "Duplicate entry"}), 409
     
 @patient_bp.route("", methods=["GET"])
+@jwt_required()
 def list_patients():
     search = request.args.get("search")
     query = Patient.query
@@ -51,6 +54,7 @@ def list_patients():
     return jsonify(schema.dump(patients)), 200
 
 @patient_bp.route("/<int:patient_id>", methods=["GET"])
+@jwt_required()
 def get_patient(patient_id):
     patient = Patient.query.get_or_404(patient_id)
     schema = PatientSchema()
