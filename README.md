@@ -92,6 +92,18 @@ $ python3 run.py
 
 6. Navigate to [http://localhost:5000](http://localhost:5000) OR [http://localhost:5000/apidocs](http://localhost:5000/apidocs)
 
+## 🌐 Front-end: E-Miadi Web
+
+- Front-end repo: [https://github.com/Ogollah/e-miadi-web.git](https://github.com/Ogollah/e-miadi-web.git)
+- Built with modern web technologies for seamless user experience.
+- ![🌟](https://github.githubassets.com/images/icons/emoji/unicode/1f31f.png) Responsive design for patients and providers.
+
+#### Logon page
+
+<picture>
+<img alt="Shows login page of the front-end" src="./.meta/miadi_login.png">
+</picture>
+
 ## 🗄️ DB Schema
 
 ```

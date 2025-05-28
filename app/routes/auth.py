@@ -60,7 +60,7 @@ from datetime import timedelta
 @auth_bp.route('/login', methods=['POST'])
 def login():
     """
-    Authenticate a user and return a JWT access token.
+    Authenticate a user and return a JWT access token along with user information.
     ---
     tags:
       - Authentication
@@ -88,22 +88,42 @@ def login():
           properties:
             access_token:
               type: string
+            user:
+              type: object
+              properties:
+                id:
+                  type: integer
+                username:
+                  type: string
+                role:
+                  type: string
+                person_id:
+                  type: integer
       401:
         description: Invalid credentials
     """
     data = request.get_json()
     user = User.query.filter_by(username=data.get("username")).first()
-
+    
     if not user or not user.check_password(data.get("password")):
         return jsonify({"message": "Invalid credentials"}), 401
-
+    
     access_token = create_access_token(
         identity=str(user.id), 
         additional_claims={"role": user.role},
         expires_delta=timedelta(hours=1)
     )
-
-    return jsonify(access_token=access_token), 200
+    
+    # Return both access token and user information
+    return jsonify({
+        "access_token": access_token,
+        "user": {
+            "id": user.id,
+            "username": user.username,
+            "role": user.role,
+            "person_id": user.person_id
+        }
+    }), 200
 
 @auth_bp.route("/logout", methods=["POST"])
 @jwt_required()

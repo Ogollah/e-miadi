@@ -7,6 +7,7 @@ from .routes import register_blueprints
 from flasgger import Swagger
 from .schemas.swagger_definitions import swagger_template
 from .config import app_config
+from flask_cors import CORS
 
 def create_app(config_name):
     app = Flask(__name__)
@@ -18,6 +19,7 @@ def create_app(config_name):
     Swagger(app, template=swagger_template)
     from .models import appointment, user, patient, provider, insurance, record, person
     register_blueprints(app)
+    CORS(app)
 
     @jwt.token_in_blocklist_loader
     def check_if_token_revoked(jwt_header, jwt_payload):
